@@ -10,7 +10,6 @@ import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,18 +25,20 @@ public class CityImportService {
 
     private static final Logger logger = LoggerFactory.getLogger(CityImportService.class);
 
-    @Autowired
-    private CityRepository cityRepository;
+    private final CityRepository cityRepository;
 
-    @Autowired
-    private ProvinsiRepository provinsiRepository;
+    private final ProvinsiRepository provinsiRepository;
+
+    public CityImportService(CityRepository cityRepository, ProvinsiRepository provinsiRepository) {
+        this.cityRepository = cityRepository;
+        this.provinsiRepository = provinsiRepository;
+    }
 
     public City saveOrUpdateCity(City city) {
         Optional<City> existingCity = cityRepository.findById(city.getId_city());
 
         if (existingCity.isPresent()) {
             City oldCity = existingCity.get();
-            city.setVersion(oldCity.getVersion());
             city.setProvinsi(oldCity.getProvinsi());
         }
         return cityRepository.save(city);
@@ -52,7 +53,7 @@ public class CityImportService {
                 .withCSVParser(new CSVParserBuilder().withSeparator(';').build())
                 .build()) {
 
-            reader.readNext();
+//            reader.readNext();
 
             String[] nextLine;
             while ((nextLine = reader.readNext()) != null) {

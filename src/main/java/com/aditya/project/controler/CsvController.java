@@ -1,11 +1,12 @@
 package com.aditya.project.controler;
 
-import com.aditya.project.model.City;
 import com.aditya.project.service.CityImportService;
 import com.aditya.project.service.ProvinsiImportService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -13,11 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/import")
 public class CsvController {
 
-    @Autowired
-    private ProvinsiImportService csvImportService;
+    private final ProvinsiImportService csvImportService;
 
-
-
+    public CsvController(ProvinsiImportService csvImportService, CityImportService cityImportService) {
+        this.csvImportService = csvImportService;
+        this.cityImportService = cityImportService;
+    }
 
     @PostMapping("/provinsi")
     public ResponseEntity<String> uploadProvinsi(@RequestParam("file") MultipartFile file) {
@@ -29,8 +31,7 @@ public class CsvController {
     }
 
 
-    @Autowired
-    private CityImportService cityImportService;
+    private final CityImportService cityImportService;
 
     @PostMapping("/city")
     public ResponseEntity<String> uploadCity(@RequestParam("file") MultipartFile file) {

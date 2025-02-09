@@ -23,8 +23,11 @@ public class ProvinsiImportService {
 
     private static final Logger logger = LoggerFactory.getLogger(ProvinsiImportService.class);
 
-    @Autowired
-    private ProvinsiRepository provinsiRepository;
+    private final ProvinsiRepository provinsiRepository;
+
+    public ProvinsiImportService(ProvinsiRepository provinsiRepository) {
+        this.provinsiRepository = provinsiRepository;
+    }
 
     @Transactional
     public String importProvinsi(MultipartFile file) {
@@ -34,7 +37,7 @@ public class ProvinsiImportService {
                 .withCSVParser(new CSVParserBuilder().withSeparator(';').build())
                 .build()) {
 
-            reader.readNext();
+//            reader.readNext();
 
             String[] nextLine;
             while ((nextLine = reader.readNext()) != null) {
