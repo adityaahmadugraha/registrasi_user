@@ -1,4 +1,4 @@
-package com.aditya.project;
+package com.aditya.project.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

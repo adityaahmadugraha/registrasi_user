@@ -1,7 +1,7 @@
 package com.aditya.project.service;
 
-import com.aditya.project.User;
-import com.aditya.project.UserRepository;
+import com.aditya.project.model.User;
+import com.aditya.project.repository.UserRepository;
 import com.aditya.project.dto.LoginRequest;
 import com.aditya.project.dto.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;

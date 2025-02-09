@@ -1,4 +1,4 @@
-package com.aditya.project;
+package com.aditya.project.controler;
 
 import com.aditya.project.dto.LoginRequest;
 import com.aditya.project.dto.RegisterRequest;
