@@ -11,11 +11,10 @@ import lombok.Setter;
 public class Kelurahan {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_kelurahan;
 
-    @Column(nullable = false, unique = true)
-    private String name_kelurahan;
+    @Column(name = "name_kelurahan")
+    private String nameKelurahan;
 
     @ManyToOne
     @JoinColumn(name = "id_kecamatan", nullable = false)
