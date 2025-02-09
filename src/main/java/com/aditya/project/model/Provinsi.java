@@ -15,4 +15,6 @@ public class Provinsi {
 
     @Column(nullable = false, unique = true)
     private String nama_prov;
+
+
 }

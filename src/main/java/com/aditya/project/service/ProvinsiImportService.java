@@ -19,15 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CsvImportService {
+public class ProvinsiImportService {
 
-    private static final Logger logger = LoggerFactory.getLogger(CsvImportService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProvinsiImportService.class);
 
     @Autowired
     private ProvinsiRepository provinsiRepository;
 
     @Transactional
-    public String importCsv(MultipartFile file) {
+    public String importProvinsi(MultipartFile file) {
         List<Provinsi> provinsiList = new ArrayList<>();
 
         try (CSVReader reader = new CSVReaderBuilder(new InputStreamReader(file.getInputStream()))
@@ -40,7 +40,7 @@ public class CsvImportService {
             while ((nextLine = reader.readNext()) != null) {
                 try {
                     if (nextLine.length < 2 || nextLine[0].trim().isEmpty() || nextLine[1].trim().isEmpty()) {
-                        logger.warn("Baris CSV tidak valid: {}", (Object) nextLine);
+                        logger.warn("Baris Provinsi tidak valid: {}", (Object) nextLine);
                         continue;
                     }
 
@@ -62,21 +62,21 @@ public class CsvImportService {
                 } catch (NumberFormatException e) {
                     logger.error("Format ID tidak valid: {} - Error: {}", (Object) nextLine, e.getMessage());
                 } catch (Exception e) {
-                    throw new RuntimeException("Gagal memproses CSV: " + e.getMessage(), e);
+                    throw new RuntimeException("Gagal memproses Provinsi: " + e.getMessage(), e);
                 }
             }
 
             provinsiRepository.saveAll(provinsiList);
             provinsiRepository.flush();
 
-            return "Import CSV berhasil! Total data: " + provinsiList.size();
+            return "Import Provinsi berhasil! Total data: " + provinsiList.size();
 
         } catch (IOException e) {
-            logger.error("Gagal membaca file CSV! Error: {}", e.getMessage(), e);
-            return "Gagal membaca file CSV!";
+            logger.error("Gagal membaca file Provinsi! Error: {}", e.getMessage(), e);
+            return "Gagal membaca file Provinsi!";
         } catch (CsvValidationException e) {
-            logger.error("Kesalahan validasi CSV! Error: {}", e.getMessage(), e);
-            return "Gagal memvalidasi CSV!";
+            logger.error("Kesalahan validasi Provinsi! Error: {}", e.getMessage(), e);
+            return "Gagal memvalidasi Provinsi!";
         }
     }
 
