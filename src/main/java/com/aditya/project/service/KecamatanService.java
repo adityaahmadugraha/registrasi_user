@@ -86,7 +86,6 @@ public class KecamatanService {
                     if (optionalCity.isPresent()) {
                         kecamatan.setCity(optionalCity.get());
                     } else {
-                        logger.warn("Kecamatan dengan ID {} tidak ditemukan.", idCity);
                         continue;
                     }
 

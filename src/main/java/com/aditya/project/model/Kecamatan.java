@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Setter
 @Getter
 @Entity
@@ -16,13 +14,12 @@ public class Kecamatan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_kecamatan;
 
-    @Column(nullable = false, unique = true)
-    private String name_kecamatan;
+    @Column(name = "name_kecamatan")
+    private String nameKecamatan;
 
     @ManyToOne
     @JoinColumn(name = "id_city", nullable = false)
     private City city;
 
-    @OneToMany(mappedBy = "kecamatan", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Kelurahan> kelurahanList;
+
 }
