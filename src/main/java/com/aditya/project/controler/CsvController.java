@@ -17,6 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class CsvController {
 
     private final ProvinsiImportService csvImportService;
+    private final CityImportService cityImportService;
+    private final KecamatanService kecamatanImportService;
+    private final KelurahanService kelurahanService;
+
 
     public CsvController(ProvinsiImportService csvImportService, CityImportService cityImportService, KecamatanService kecamatanImportService, KelurahanService kelurahanService) {
         this.csvImportService = csvImportService;
@@ -35,8 +39,6 @@ public class CsvController {
     }
 
 
-    private final CityImportService cityImportService;
-
     @PostMapping("/city")
     public ResponseEntity<String> uploadCity(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
@@ -46,7 +48,6 @@ public class CsvController {
         return ResponseEntity.ok(message);
     }
 
-    private final KecamatanService kecamatanImportService;
 
     @PostMapping("/kecamatan")
     public ResponseEntity<String> uploadKecamatan(@RequestParam("file") MultipartFile file) {
@@ -57,7 +58,6 @@ public class CsvController {
         return ResponseEntity.ok(message);
     }
 
-    private final KelurahanService kelurahanService;
 
     @PostMapping("/kelurahan")
     public ResponseEntity<String> uploadKelurahan(@RequestParam("file") MultipartFile file) {

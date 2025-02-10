@@ -9,8 +9,10 @@ import com.aditya.project.repository.CityRepository;
 import com.aditya.project.repository.KecamatanRepository;
 import com.aditya.project.repository.KelurahanRepository;
 import com.aditya.project.repository.ProvinsiRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -18,17 +20,20 @@ import java.util.List;
 @RequestMapping("/api/alamat")
 public class AlamatController {
 
-    @Autowired
-    private ProvinsiRepository provinsiRepository;
+    private final ProvinsiRepository provinsiRepository;
 
-    @Autowired
-    private CityRepository cityRepository;
+    private final CityRepository cityRepository;
 
-    @Autowired
-    private KecamatanRepository kecamatanRepository;
+    private final KecamatanRepository kecamatanRepository;
 
-    @Autowired
-    private KelurahanRepository kelurahanRepository;
+    private final KelurahanRepository kelurahanRepository;
+
+    public AlamatController(ProvinsiRepository provinsiRepository, CityRepository cityRepository, KecamatanRepository kecamatanRepository, KelurahanRepository kelurahanRepository) {
+        this.provinsiRepository = provinsiRepository;
+        this.cityRepository = cityRepository;
+        this.kecamatanRepository = kecamatanRepository;
+        this.kelurahanRepository = kelurahanRepository;
+    }
 
     @GetMapping("/provinsi")
     public List<Provinsi> getProvinsi() {
@@ -37,8 +42,10 @@ public class AlamatController {
 
     @GetMapping("/city/{idProvinsi}")
     public List<City> getCities(@PathVariable Long idProvinsi) {
-        return cityRepository.findByProvinsiId(idProvinsi);
+        List<City> city = cityRepository.findByProvinsiId(idProvinsi);
+        return city;
     }
+
 
     @GetMapping("/kecamatan/{idCity}")
     public List<Kecamatan> getKecamatan(@PathVariable Long idCity) {
