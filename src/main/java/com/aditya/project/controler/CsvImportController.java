@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/import")
-public class CsvController {
+public class CsvImportController {
 
     private final ProvinsiImportService csvImportService;
     private final CityImportService cityImportService;
@@ -22,7 +22,7 @@ public class CsvController {
     private final KelurahanService kelurahanService;
 
 
-    public CsvController(ProvinsiImportService csvImportService, CityImportService cityImportService, KecamatanService kecamatanImportService, KelurahanService kelurahanService) {
+    public CsvImportController(ProvinsiImportService csvImportService, CityImportService cityImportService, KecamatanService kecamatanImportService, KelurahanService kelurahanService) {
         this.csvImportService = csvImportService;
         this.cityImportService = cityImportService;
         this.kecamatanImportService = kecamatanImportService;

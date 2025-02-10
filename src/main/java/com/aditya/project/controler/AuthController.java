@@ -3,7 +3,7 @@ package com.aditya.project.controler;
 import com.aditya.project.dto.LoginRequest;
 import com.aditya.project.dto.RegisterRequest;
 import com.aditya.project.model.User;
-import com.aditya.project.model.LoginResponse;
+import com.aditya.project.model.ServerResponse;
 import com.aditya.project.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +37,7 @@ public class AuthController {
 
         try {
             authService.register(user);
-            return ResponseEntity.ok("User registered successfully");
+            return ResponseEntity.ok("Register success");
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -50,7 +50,7 @@ public class AuthController {
             String response = authService.login(request);
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(new LoginResponse());
+            return ResponseEntity.badRequest().body(new ServerResponse());
         }
     }
 

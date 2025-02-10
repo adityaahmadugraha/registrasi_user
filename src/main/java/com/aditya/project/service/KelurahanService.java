@@ -1,17 +1,14 @@
 package com.aditya.project.service;
 
-import com.aditya.project.model.City;
 import com.aditya.project.model.Kecamatan;
 import com.aditya.project.model.Kelurahan;
-import com.aditya.project.repository.CityRepository;
 import com.aditya.project.repository.KecamatanRepository;
 import com.aditya.project.repository.KelurahanRepository;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvValidationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,10 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class KelurahanService {
-
-    private static final Logger logger = LoggerFactory.getLogger(com.aditya.project.service.KelurahanService.class);
 
     private final KelurahanRepository kelurahanRepository;
 
@@ -61,7 +57,7 @@ public class KelurahanService {
             while ((nextLine = reader.readNext()) != null) {
                 try {
                     if (nextLine.length < 3 || nextLine[0].trim().isEmpty() || nextLine[1].trim().isEmpty() || nextLine[2].trim().isEmpty()) {
-                        logger.warn("Baris Kelurahan tidak valid: {}", (Object) nextLine);
+                        log.warn("Baris Kelurahan tidak valid: {}", (Object) nextLine);
                         continue;
                     }
 
@@ -92,10 +88,10 @@ public class KelurahanService {
                     kelurahan = saveOrUpdateKelurahan(kelurahan);
                     kelurahanList.add(kelurahan);
 
-                    logger.info("Data valid: ID={} Nama={} Provinsi={}", idKelurahan, namaKelurahan, idKecamatan);
+                    log.info("Data valid: ID={} Nama={} Provinsi={}", idKelurahan, namaKelurahan, idKecamatan);
 
                 } catch (NumberFormatException e) {
-                    logger.error("Format ID tidak valid: {} - Error: {}", nextLine, e.getMessage());
+                    log.error("Format ID tidak valid: {} - Error: {}", nextLine, e.getMessage());
                 } catch (Exception e) {
                     throw new RuntimeException("Gagal memproses Kecamatan: " + e.getMessage(), e);
                 }
@@ -107,10 +103,10 @@ public class KelurahanService {
             return "Import Kecamatan berhasil! Total data yang disimpan: " + kelurahanList.size();
 
         } catch (IOException e) {
-            logger.error("Gagal membaca file Kecamatan! Error: {}", e.getMessage(), e);
+            log.error("Gagal membaca file Kecamatan! Error: {}", e.getMessage(), e);
             return "Gagal membaca file Kecamatan!";
         } catch (CsvValidationException e) {
-            logger.error("Kesalahan validasi Kecamatan! Error: {}", e.getMessage(), e);
+            log.error("Kesalahan validasi Kecamatan! Error: {}", e.getMessage(), e);
             return "Gagal memvalidasi Kecamatan!";
         }
 

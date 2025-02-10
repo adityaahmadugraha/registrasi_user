@@ -13,7 +13,6 @@ public class RegisterRequest {
     private String username;
     private String password;
     private String email;
-
     private String jenis_kelamin;
     private Long id_provinsi;
     private Long id_kota;
