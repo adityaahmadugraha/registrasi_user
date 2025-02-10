@@ -17,6 +17,6 @@ public class Kelurahan {
     private String nameKelurahan;
 
     @ManyToOne
-    @JoinColumn(name = "id_kecamatan", nullable = false)
+    @JoinColumn(name = "id_kecamatan")
     private Kecamatan kecamatan;
 }

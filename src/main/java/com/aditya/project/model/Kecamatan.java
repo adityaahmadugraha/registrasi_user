@@ -18,8 +18,7 @@ public class Kecamatan {
     private String nameKecamatan;
 
     @ManyToOne
-    @JoinColumn(name = "id_city", nullable = false)
+    @JoinColumn(name = "id_city")
     private City city;
-
 
 }

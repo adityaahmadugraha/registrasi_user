@@ -1,10 +1,7 @@
 package com.aditya.project.controler;
 
-import com.aditya.project.dto.LoginRequest;
-import com.aditya.project.dto.RegisterRequest;
+import com.aditya.project.model.User;
 import com.aditya.project.service.AuthService;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,13 +19,15 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody @Valid RegisterRequest request) {
-        return ResponseEntity.ok(authService.register(request));
+    public ResponseEntity<?> register(@RequestBody User user) {
+            authService.register(user);
+            return ResponseEntity.ok("User registered successfully");
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody @Valid LoginRequest request) {
-        return ResponseEntity.ok(authService.login(request));
-    }
+
+//    @PostMapping("/login")
+//    public ResponseEntity<String> login(@RequestBody @Valid LoginRequest request) {
+//        return ResponseEntity.ok(authService.login(request));
+//    }
 }
 
