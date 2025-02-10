@@ -42,8 +42,7 @@ public class AlamatController {
 
     @GetMapping("/city/{idProvinsi}")
     public List<City> getCities(@PathVariable Long idProvinsi) {
-        List<City> city = cityRepository.findByProvinsiId(idProvinsi);
-        return city;
+        return cityRepository.findByProvinsiId(idProvinsi);
     }
 
 
