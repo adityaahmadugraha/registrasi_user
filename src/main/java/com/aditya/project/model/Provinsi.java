@@ -13,7 +13,6 @@ public class Provinsi {
     @Id
     private Long id_prov;
 
-    @Column(nullable = false, unique = true)
     private String nama_prov;
 
 

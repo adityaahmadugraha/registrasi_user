@@ -11,7 +11,6 @@ import lombok.Setter;
 public class Kecamatan {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_kecamatan;
 
     @Column(name = "name_kecamatan")

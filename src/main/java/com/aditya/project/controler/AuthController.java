@@ -37,21 +37,29 @@ public class AuthController {
 
         try {
             authService.register(user);
-            return ResponseEntity.ok("Register success");
+            return ResponseEntity.ok("Register sukses");
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
 
+
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid LoginRequest request) {
+    public ResponseEntity<ServerResponse> login(@RequestBody @Valid LoginRequest request) {
         try {
-            String response = authService.login(request);
+            ServerResponse response = authService.login(request);
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(new ServerResponse());
+            ServerResponse errorResponse = new ServerResponse();
+            errorResponse.setKode(400);
+            errorResponse.setStatus(false);
+            errorResponse.setMessage(e.getMessage());
+
+            return ResponseEntity.badRequest().body(errorResponse);
         }
     }
+
+
 
 }

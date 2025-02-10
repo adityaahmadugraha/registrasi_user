@@ -2,6 +2,7 @@ package com.aditya.project.service;
 
 import com.aditya.project.dto.LoginRequest;
 import com.aditya.project.model.User;
+import com.aditya.project.model.ServerResponse;
 import com.aditya.project.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,31 +24,35 @@ public class AuthService {
 
     public void register(User user) {
         if (user.getUsername() == null || user.getUsername().isEmpty()) {
-            throw new RuntimeException("Username cannot be empty!");
+            throw new RuntimeException("username tidak boleh kosong");
         }
 
         Optional<User> existingUser = userRepository.findByUsername(user.getUsername());
         if (existingUser.isPresent()) {
-            throw new RuntimeException("Username already taken!");
+            throw new RuntimeException("username sudah ada");
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
-
-    public String login(LoginRequest request) {
+    public ServerResponse login(LoginRequest request) {
         Optional<User> userOptional = userRepository.findByUsername(request.getUsername());
 
         if (userOptional.isEmpty()) {
-            throw new RuntimeException("User not found");
+            throw new RuntimeException("User tidak ditemukan");
         }
 
         User user = userOptional.get();
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid password");
+            throw new RuntimeException("cek kembali password");
         }
 
-        return "Login successful for user: " + user.getUsername();
+        ServerResponse response = new ServerResponse();
+        response.setKode(200);
+        response.setStatus(true);
+        response.setMessage("Login sukses");
+
+        return response;
     }
 }

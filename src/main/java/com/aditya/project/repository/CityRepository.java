@@ -19,3 +19,5 @@ public interface CityRepository extends JpaRepository<City, Long> {
 
     Optional<City> findByNameCity(String nameCity);
 }
+
+
